@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StreamChat } from 'stream-chat';
 import { Chat } from 'stream-chat-react';
 import Cookies from 'universal-cookie';
-// import ChannelContainer from './components/ChannelContainer';
-// import ChannelListContainer from './components/ChannelListContainer';
+
 import { ChannelListContainer, ChannelContainer, Auth } from './components';
+
+import 'stream-chat-react/dist/css/index.css';
 import './App.css';
 
 const cookies = new Cookies();
 
-const apiKey='zm6zkae54xf7'; // taken from stream chat dashboard
+const apiKey ='zm6zkae54xf7'; // taken from stream chat dashboard
 const authToken = cookies.get("token");
 
-const client= StreamChat.getInstance(apiKey);
+const client = StreamChat.getInstance(apiKey);
 
 if(authToken) {
     client.connectUser({
@@ -27,15 +28,27 @@ if(authToken) {
 
 
 const App = () => {
-    if(!authToken) return <Auth/>
+    const [createType, setCreateType] = useState('');
+    const [isCreating, setIsCreating] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+
+    if(!authToken) return <Auth />
+
     return (
         <div className="app__wrapper">
             <Chat client={client} theme="team light">
                 <ChannelListContainer 
-   
+                    isCreating={isCreating}
+                    setIsCreating={setIsCreating}
+                    setCreateType={setCreateType}
+                    setIsEditing={setIsEditing}
                 />
-                <ChannelContainer
-
+                <ChannelContainer 
+                    isCreating={isCreating}
+                    setIsCreating={setIsCreating}
+                    isEditing={isEditing}
+                    setIsEditing={setIsEditing}
+                    createType={createType}
                 />
             </Chat>
         </div>

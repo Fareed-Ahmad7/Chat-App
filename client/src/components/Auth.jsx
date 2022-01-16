@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import signinImage from '../assets/signup.jpg';
@@ -26,7 +25,7 @@ const Auth = () => {
 
         const { username, password, phoneNumber, avatarURL } = form;
 
-        const URL = 'https://localhost:5000/auth'; 
+        const URL = 'https://localhost:8080/auth'; 
 
         const { data: { token, userId, hashedPassword, fullName } } = await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
             username, password, fullName: form.fullName, phoneNumber, avatarURL,
@@ -51,12 +50,10 @@ const Auth = () => {
     }
 
     return (
-        <div className='auth__form-container'>
-            <div className='auth__form-container_fields'>
-                <div className='auth__form-container_fields-content'>
-                    <p>
-                        {isSignup ? 'Sign Up' : 'Sign In'}
-                    </p>
+        <div className="auth__form-container">
+            <div className="auth__form-container_fields">
+                <div className="auth__form-container_fields-content">
+                    <p>{isSignup ? 'Sign Up' : 'Sign In'}</p>
                     <form onSubmit={handleSubmit}>
                         {isSignup && (
                         <div className="auth__form-container_fields-content_input">
