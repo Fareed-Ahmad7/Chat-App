@@ -23,7 +23,7 @@ const signup = async (req, res) => {
         
         res.status(200).json({ token, fullName, username, userId, hashedPassword, phoneNumber });
     } catch (error) {
-       console.log(error);
+        console.log(error);
 
         res.status(500).json({ message: error });
     }
@@ -50,7 +50,7 @@ const login = async (req, res) => {
             res.status(500).json({ message: 'Incorrect password' });
         }
     } catch (error) {ads
-       console.log(error);
+        console.log(error);
 
         res.status(500).json({ message: error });
     }
